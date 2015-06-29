@@ -459,23 +459,24 @@ function crlfwnr_custom_login_member() {
         }else{
           crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));  
         }*/
-        
-        if (isset($_POST['g-recaptcha-response'])) {
-        $recaptcha_secret = $reg_options['secrete_key'];        
-        $response = wp_remote_get("https://www.google.com/recaptcha/api/siteverify?secret=". $recaptcha_secret ."&response=". $_POST['g-recaptcha-response']);
-        $response = json_decode($response["body"], true);
-        //echo "<pre>";
-        //print_r($response);    exit;
-        if (true == $response["success"]) {
-           // return true;
-        } else {
-             crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
-            //return null;
-        }
-    } else {
-          crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
-        //return null;
-    }
+       if($reg_options['captcha_login']) {    
+            if (isset($_POST['g-recaptcha-response'])) {
+            $recaptcha_secret = $reg_options['secrete_key'];        
+            $response = wp_remote_get("https://www.google.com/recaptcha/api/siteverify?secret=". $recaptcha_secret ."&response=". $_POST['g-recaptcha-response']);
+            $response = json_decode($response["body"], true);
+            //echo "<pre>";
+            //print_r($response);    exit;
+            if (true == $response["success"]) {
+               // return true;
+            } else {
+                 crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
+                //return null;
+            }
+            } else {
+                  crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
+                //return null;
+            }
+       } 
        
  
         // retrieve all error messages
@@ -561,24 +562,24 @@ function crlfwnr_custom_add_new_member() {
             echo $flag."hello222222"; exit; 
             crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));
         } */
-        
-        if (isset($_POST['g-recaptcha-response'])) {
-        $recaptcha_secret = $reg_options['secrete_key'];        
-        $response = wp_remote_get("https://www.google.com/recaptcha/api/siteverify?secret=". $recaptcha_secret ."&response=". $_POST['g-recaptcha-response']);
-        $response = json_decode($response["body"], true);
-        //echo "<pre>";
-        //print_r($response);    exit;
-        if (true == $response["success"]) {
-           // return true;
-        } else {
-             crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
-            //return null;
-        }
-    } else {
-          crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
-        //return null;
-    }
-   
+       if($reg_options['captcha_registration']) {        
+            if (isset($_POST['g-recaptcha-response'])) {
+            $recaptcha_secret = $reg_options['secrete_key'];        
+            $response = wp_remote_get("https://www.google.com/recaptcha/api/siteverify?secret=". $recaptcha_secret ."&response=". $_POST['g-recaptcha-response']);
+            $response = json_decode($response["body"], true);
+            //echo "<pre>";
+            //print_r($response);    exit;
+            if (true == $response["success"]) {
+               // return true;
+            } else {
+                 crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
+                //return null;
+            }
+            } else {
+                  crlfwnr_custom_errors()->add('g-recaptcha-response', __($captcha_error));   
+                //return null;
+            }
+       }
         
         //echo $msg;
  
